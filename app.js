@@ -40,68 +40,97 @@ var imgSec = document.getElementById("imgSec");
 var leftProduct;
 var centerProduct;
 var rightProduct;
+var l;
+var c;
+var r;
+var totalClick = 0;
 
 function render() {
-
-    leftProduct = product[Math.floor(Math.random() * (product.length - 1))];
-    centerProduct = product[Math.floor(Math.random() * (product.length - 1))];
-    rightProduct = product[Math.floor(Math.random() * (product.length - 1))];
-
+    
+    leftProduct = product[Math.floor(Math.random() * (product.length ))];
+    centerProduct = product[Math.floor(Math.random() * (product.length ))];
+    rightProduct = product[Math.floor(Math.random() * (product.length ))];
+    
+    
+//    selected.push(leftProduct,centerProduct,rightProduct);
     while (leftProduct.imgPath === rightProduct.imgPath || leftProduct.imgPath === centerProduct.imgPath || rightProduct.imgPath === centerProduct.imgPath) {
-        leftProduct = product[Math.floor(Math.random() * (product.length - 1))];
-        centerProduct = product[Math.floor(Math.random() * (product.length - 1))];
-        rightProduct = product[Math.floor(Math.random() * (product.length - 1))];
+       
+      
+        leftProduct = product[Math.floor(Math.random() * (product.length ))];
+        centerProduct = product[Math.floor(Math.random() * (product.length ))];
+        rightProduct = product[Math.floor(Math.random() * (product.length))];
+        // console.log(leftProduct.imgPath," ", rightProduct.imgPath," ", centerProduct.imgPath);
+        // console.log(l,r,c);
 
+            
     }
-
-    leftImg.setAttribute('src', leftProduct.imgPath);
-    rightImg.setAttribute('src', rightProduct.imgPath);
-    centerImg.setAttribute('src', centerProduct.imgPath);
-
+    if ( totalClick>0 && (leftProduct.imgPath===l || leftProduct.imgPath===r || leftProduct.imgPath===c || rightProduct.imgPath===l || rightProduct.imgPath===r || rightProduct.imgPath===c || centerProduct.imgPath===l || centerProduct.imgPath===r || centerProduct.imgPath===c ))
+    {
+        render();
+    }
+//    console.log(leftProduct," ",rightProduct," ",centerProduct);
+   l =leftProduct.imgPath;
+   c=centerProduct.imgPath;
+   r=rightProduct.imgPath;
+    leftImg.setAttribute('src', l);
+    rightImg.setAttribute('src', r);
+    centerImg.setAttribute('src', c);
+    
     // handleClick();
-
 }
+
 render();
 
 
+var timeclicked=[];
 
-var totalClick = 0;
 var total = 25;
 
 imgSec.addEventListener('click', handleClick);
 function handleClick(event) {
-    console.log(event.target);
+    // console.log(event.target);
     if (totalClick < total) {
         if (event.target.id === 'leftImg') {
         leftProduct.numberOfClicks++;
-            console.log(leftProduct, "left");
+            // console.log(leftProduct, "left");
         }
         else if (event.target.id === 'centerImg')
         {
         centerProduct.numberOfClicks++;
-        console.log(centerProduct, "center");
+        // console.log(centerProduct, "center");
         }
         else if (event.target.id === 'rightImg') {
         rightProduct.numberOfClicks++;
-            console.log(rightProduct, "right");
+            // console.log(rightProduct, "right");
         }
        
         totalClick++;
-        console.log(product);
+        // console.log(product);
 
         leftProduct.numberOfShowen++;
         rightProduct.numberOfShowen++;
         centerProduct.numberOfShowen++;
         render();
+        console.log(l," ", r," ",c);
+    console.log(totalClick);
     }
     else {
         imgSec.removeEventListener('click', handleClick);
+        leftProduct.numberOfShowen++;
+        rightProduct.numberOfShowen++;
+        centerProduct.numberOfShowen++;
         pageInfo();
+for (var i=0; i<20; i++)
+{
+    timeclicked[i]=product[i].numberOfClicks;
+}
+        // console.log(timeclicked);
+        drawingCanvas();
         var sum = 0;
         for (var i = 0; i < 20; i++) {
             sum = sum + product[i].numberOfShowen;
         }
-        console.log(sum);
+        // console.log(sum);
     }
 
 
@@ -121,7 +150,83 @@ function pageInfo() {
     }
 }
 
+var names=[];
+for (var i=0; i<20; i++)
+{
+    names[i]=product[i].productName;
+}
 
 
+// console.log(timeclicked);
+function drawingCanvas()
+{
+    var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: names,
+        datasets: [{
+            label: '# votes',
+            data: timeclicked,
+            backgroundColor: [
+               
+                'rgb(255, 159, 64)',
+                'rgb(255, 1, 102)',
+                'rgb(255, 159, 184)',
+                'rgb(255, 0, 122)',
+                'rgb(255, 159, 174)',
+                'rgb(255, 0, 12)',
+                'rgb(255, 159, 6)',
+                'rgb(255, 0, 200)',
+                'rgb(255, 159, 30)',
+                'rgb(255, 0, 30)',
+                'rgb(255, 159, 200)',
+                'rgb(255, 0, 102)',
+                'rgb(255, 159, 102)',
+                'rgb(255, 0, 202)',
+                'rgb(255, 159, 15)',
+                'rgb(255, 0, 15)',
+                'rgb(255, 159, 164)',
+                'rgb(255, 0, 142)',
+                'rgb(255, 159, 0)',
+                'rgb(255, 0, 3)'
+            ],
+            borderColor: [
+               
+                '#000',
+                '#000',
+                '#000',
+                '#000',
+                '#000',
+                '#000',
+                '#000',
+                '#000',
+                '#000',
+                '#000',
+                '#000',
+                '#000',
+                '#000',
+                '#000',
+                '#000',
+                '#000',
+                '#000',
+                '#000',
+                '#000',
+                '#000'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+}
 // console.log(product);
 // console.log(product.length);
