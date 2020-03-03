@@ -89,18 +89,11 @@ function getFromLocal()
         pageInfo();
         drawingCanvas();
         
+        
     }
+   
+
 }
-
-
-
-
-
-
-
-
-
-
 
 var total = 25;
 
@@ -167,8 +160,8 @@ function pageInfo() {
 }
 
 
-
-
+var myChart;
+var draw=0;
 // console.log(timeclicked);
 function drawingCanvas() {
     var timeclicked = [];
@@ -184,7 +177,7 @@ for (var i = 0; i < 20; i++) {
     timeclicked[i] = product[i].numberOfClicks;
 }
     var ctx = document.getElementById('myChart').getContext('2d');
-    var myChart = new Chart(ctx, {
+    myChart = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: names,
@@ -309,7 +302,7 @@ for (var i = 0; i < 20; i++) {
             }
         }
     });
-}
+draw++;}
 // console.log(product);
 // console.log(product.length);
 
