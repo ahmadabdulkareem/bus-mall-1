@@ -46,44 +46,35 @@ var r;
 var totalClick = 0;
 
 function render() {
-    
-    leftProduct = product[Math.floor(Math.random() * (product.length ))];
-    centerProduct = product[Math.floor(Math.random() * (product.length ))];
-    rightProduct = product[Math.floor(Math.random() * (product.length ))];
-    
-    
-//    selected.push(leftProduct,centerProduct,rightProduct);
-    while (leftProduct.imgPath === rightProduct.imgPath || leftProduct.imgPath === centerProduct.imgPath || rightProduct.imgPath === centerProduct.imgPath) {
-       
-      
-        leftProduct = product[Math.floor(Math.random() * (product.length ))];
-        centerProduct = product[Math.floor(Math.random() * (product.length ))];
-        rightProduct = product[Math.floor(Math.random() * (product.length))];
-        // console.log(leftProduct.imgPath," ", rightProduct.imgPath," ", centerProduct.imgPath);
-        // console.log(l,r,c);
 
-            
+    leftProduct = product[Math.floor(Math.random() * (product.length))];
+    centerProduct = product[Math.floor(Math.random() * (product.length))];
+    rightProduct = product[Math.floor(Math.random() * (product.length))];
+
+
+    //    selected.push(leftProduct,centerProduct,rightProduct);
+    while (leftProduct.imgPath === rightProduct.imgPath || leftProduct.imgPath === centerProduct.imgPath || rightProduct.imgPath === centerProduct.imgPath) {
+
+
+        leftProduct = product[Math.floor(Math.random() * (product.length))];
+        centerProduct = product[Math.floor(Math.random() * (product.length))];
+        rightProduct = product[Math.floor(Math.random() * (product.length))];
     }
-    if ( totalClick>0 && (leftProduct.imgPath===l || leftProduct.imgPath===r || leftProduct.imgPath===c || rightProduct.imgPath===l || rightProduct.imgPath===r || rightProduct.imgPath===c || centerProduct.imgPath===l || centerProduct.imgPath===r || centerProduct.imgPath===c ))
-    {
+    if (totalClick > 0 && (leftProduct.imgPath === l || leftProduct.imgPath === r || leftProduct.imgPath === c || rightProduct.imgPath === l || rightProduct.imgPath === r || rightProduct.imgPath === c || centerProduct.imgPath === l || centerProduct.imgPath === r || centerProduct.imgPath === c)) {
         render();
     }
-//    console.log(leftProduct," ",rightProduct," ",centerProduct);
-   l =leftProduct.imgPath;
-   c=centerProduct.imgPath;
-   r=rightProduct.imgPath;
+    l = leftProduct.imgPath;
+    c = centerProduct.imgPath;
+    r = rightProduct.imgPath;
     leftImg.setAttribute('src', l);
     rightImg.setAttribute('src', r);
-    centerImg.setAttribute('src', c);
-    
-    // handleClick();
-}
+    centerImg.setAttribute('src', c);}
 
 render();
 
 
-var timeclicked=[];
-var timesView=[];
+var timeclicked = [];
+var timesView = [];
 var total = 25;
 
 imgSec.addEventListener('click', handleClick);
@@ -91,19 +82,18 @@ function handleClick(event) {
     // console.log(event.target);
     if (totalClick < total) {
         if (event.target.id === 'leftImg') {
-        leftProduct.numberOfClicks++;
+            leftProduct.numberOfClicks++;
             // console.log(leftProduct, "left");
         }
-        else if (event.target.id === 'centerImg')
-        {
-        centerProduct.numberOfClicks++;
-        // console.log(centerProduct, "center");
+        else if (event.target.id === 'centerImg') {
+            centerProduct.numberOfClicks++;
+            // console.log(centerProduct, "center");
         }
         else if (event.target.id === 'rightImg') {
-        rightProduct.numberOfClicks++;
+            rightProduct.numberOfClicks++;
             // console.log(rightProduct, "right");
         }
-       
+
         totalClick++;
         // console.log(product);
 
@@ -111,8 +101,8 @@ function handleClick(event) {
         rightProduct.numberOfShowen++;
         centerProduct.numberOfShowen++;
         render();
-        console.log(l," ", r," ",c);
-    console.log(totalClick);
+        console.log(l, " ", r, " ", c);
+        console.log(totalClick);
     }
     else {
         imgSec.removeEventListener('click', handleClick);
@@ -120,15 +110,13 @@ function handleClick(event) {
         rightProduct.numberOfShowen++;
         centerProduct.numberOfShowen++;
         pageInfo();
-for (var i=0; i<20; i++)
-{
-    timeclicked[i]=product[i].numberOfClicks;
-}
+        for (var i = 0; i < 20; i++) {
+            timeclicked[i] = product[i].numberOfClicks;
+        }
 
-for (var i=0; i<20; i++)
-{
-    timesView[i]=product[i].numberOfShowen;
-}
+        for (var i = 0; i < 20; i++) {
+            timesView[i] = product[i].numberOfShowen;
+        }
         // console.log(timeclicked);
         drawingCanvas();
         var sum = 0;
@@ -155,142 +143,140 @@ function pageInfo() {
     }
 }
 
-var names=[];
-for (var i=0; i<20; i++)
-{
-    names[i]=product[i].productName;
+var names = [];
+for (var i = 0; i < 20; i++) {
+    names[i] = product[i].productName;
 }
 
 
 // console.log(timeclicked);
-function drawingCanvas()
-{
+function drawingCanvas() {
     var ctx = document.getElementById('myChart').getContext('2d');
-var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: names,
-        datasets: [{
-            label: '# votes',
-            data: timeclicked,
-            backgroundColor: [
-               
-                'rgb(255, 159, 64)',
-                'rgb(255, 159, 64)',
-                'rgb(255, 159, 64)',
-                'rgb(255, 159, 64)',
-                'rgb(255, 159, 64)',
-                'rgb(255, 159, 64)',
-                'rgb(255, 159, 64)',
-                'rgb(255, 159, 64)',
-                'rgb(255, 159, 64)',
-                'rgb(255, 159, 64)',
-                'rgb(255, 159, 64)',
-                'rgb(255, 159, 64)',
-                'rgb(255, 159, 64)',
-                'rgb(255, 159, 64)',
-                'rgb(255, 159, 64)',
-                'rgb(255, 159, 64)',
-                'rgb(255, 159, 64)',
-                'rgb(255, 159, 64)',
-                'rgb(255, 159, 64)',
-                'rgb(255, 159, 64)'
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: names,
+            datasets: [{
+                label: '# votes',
+                data: timeclicked,
+                backgroundColor: [
 
-                
-            ],
-            borderColor: [
-               
-                '#001',
-                '#001',
-                '#001',
-                '#001',
-                '#001',
-                '#001',
-                '#001',
-                '#001',
-                '#001',
-                '#001',
-                '#001',
-                '#001',
-                '#001',
-                '#001',
-                '#001',
-                '#001',
-                '#001',
-                '#001',
-                '#001',
-                '#001'
-                
-            ],
-            borderWidth: 1
-        },{
-            label: '# viwes',
-            data: timesView,
-            backgroundColor: [
-               
-                'rgb(255, 1, 64)', 
-                'rgb(255, 1, 64)',               
-                'rgb(255, 1, 64)',               
-                'rgb(255, 1, 64)',               
-                'rgb(255, 1, 64)',               
-                'rgb(255, 1, 64)', 
-                'rgb(255, 1, 64)',               
-                'rgb(255, 1, 64)',               
-                'rgb(255, 1, 64)',               
-                'rgb(255, 1, 64)', 
-                'rgb(255, 1, 64)', 
-                'rgb(255, 1, 64)',               
-                'rgb(255, 1, 64)',               
-                'rgb(255, 1, 64)',               
-                'rgb(255, 1, 64)', 
-                'rgb(255, 1, 64)', 
-                'rgb(255, 1, 64)',               
-                'rgb(255, 1, 64)',               
-                'rgb(255, 1, 64)',               
-                'rgb(255, 1, 64)'
-                
-            ],
-            borderColor: [
-               
-                '#001',
-                '#001',
-                '#001',
-                '#001',
-                '#001',
-                '#001',
-                '#001',
-                '#001',
-                '#001',
-                '#001',
-                '#001',
-                '#001',
-                '#001',
-                '#001',
-                '#001',
-                '#001',
-                '#001',
-                '#001',
-                '#001',
-                '#001'
-            ],
-            borderWidth: 1
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 159, 64)'
+
+
+                ],
+                borderColor: [
+
+                    '#001',
+                    '#001',
+                    '#001',
+                    '#001',
+                    '#001',
+                    '#001',
+                    '#001',
+                    '#001',
+                    '#001',
+                    '#001',
+                    '#001',
+                    '#001',
+                    '#001',
+                    '#001',
+                    '#001',
+                    '#001',
+                    '#001',
+                    '#001',
+                    '#001',
+                    '#001'
+
+                ],
+                borderWidth: 1
+            }, {
+                label: '# viwes',
+                data: timesView,
+                backgroundColor: [
+
+                    'rgb(255, 1, 64)',
+                    'rgb(255, 1, 64)',
+                    'rgb(255, 1, 64)',
+                    'rgb(255, 1, 64)',
+                    'rgb(255, 1, 64)',
+                    'rgb(255, 1, 64)',
+                    'rgb(255, 1, 64)',
+                    'rgb(255, 1, 64)',
+                    'rgb(255, 1, 64)',
+                    'rgb(255, 1, 64)',
+                    'rgb(255, 1, 64)',
+                    'rgb(255, 1, 64)',
+                    'rgb(255, 1, 64)',
+                    'rgb(255, 1, 64)',
+                    'rgb(255, 1, 64)',
+                    'rgb(255, 1, 64)',
+                    'rgb(255, 1, 64)',
+                    'rgb(255, 1, 64)',
+                    'rgb(255, 1, 64)',
+                    'rgb(255, 1, 64)'
+
+                ],
+                borderColor: [
+
+                    '#001',
+                    '#001',
+                    '#001',
+                    '#001',
+                    '#001',
+                    '#001',
+                    '#001',
+                    '#001',
+                    '#001',
+                    '#001',
+                    '#001',
+                    '#001',
+                    '#001',
+                    '#001',
+                    '#001',
+                    '#001',
+                    '#001',
+                    '#001',
+                    '#001',
+                    '#001'
+                ],
+                borderWidth: 1
+            }
+
+
+
+
+            ]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
         }
-
-
-
-    
-    ]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        }
-    }
-});
+    });
 }
 // console.log(product);
 // console.log(product.length);
