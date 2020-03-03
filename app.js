@@ -73,8 +73,28 @@ function render() {
 render();
 
 
-var timeclicked = [];
-var timesView = [];
+
+function sendToLacal()
+{
+
+    var productString=JSON.stringify(product);
+    localStorage.setItem('Products',productString);
+}
+
+function getFromLocal()
+{   var productString=localStorage.getItem('Products');
+    if (productString){
+        product= JSON.parse(productString);
+        render();
+        pageInfo();
+        drawingCanvas();
+        
+        
+    }
+   
+
+}
+
 var total = 25;
 
 imgSec.addEventListener('click', handleClick);
@@ -110,20 +130,16 @@ function handleClick(event) {
         rightProduct.numberOfShowen++;
         centerProduct.numberOfShowen++;
         pageInfo();
-        for (var i = 0; i < 20; i++) {
-            timeclicked[i] = product[i].numberOfClicks;
-        }
+      
 
-        for (var i = 0; i < 20; i++) {
-            timesView[i] = product[i].numberOfShowen;
-        }
+        
         // console.log(timeclicked);
         drawingCanvas();
         var sum = 0;
         for (var i = 0; i < 20; i++) {
             sum = sum + product[i].numberOfShowen;
         }
-        // console.log(sum);
+        sendToLacal();
     }
 
 
@@ -143,16 +159,25 @@ function pageInfo() {
     }
 }
 
-var names = [];
+
+var myChart;
+var draw=0;
+// console.log(timeclicked);
+function drawingCanvas() {
+    var timeclicked = [];
+var timesView = [];
+    var names = [];
 for (var i = 0; i < 20; i++) {
     names[i] = product[i].productName;
 }
-
-
-// console.log(timeclicked);
-function drawingCanvas() {
+for (var i = 0; i < 20; i++) {
+    timesView[i] = product[i].numberOfShowen;
+}
+for (var i = 0; i < 20; i++) {
+    timeclicked[i] = product[i].numberOfClicks;
+}
     var ctx = document.getElementById('myChart').getContext('2d');
-    var myChart = new Chart(ctx, {
+    myChart = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: names,
@@ -277,6 +302,8 @@ function drawingCanvas() {
             }
         }
     });
-}
+draw++;}
 // console.log(product);
 // console.log(product.length);
+
+getFromLocal();
